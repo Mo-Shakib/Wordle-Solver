@@ -80,26 +80,15 @@ print('Total words:',len(temp))
 print('Fixed:', fixed_letters)
 print('Yellow:', yellow_letters)
 print('Final:', final_word)
-
-# for x in temp:
-#     wrds = list(x)
-#     for j in wrds:
-#         if j in yellow_letters:
-#             print('Found')
-#         else:
-#             print('Not found')
     
 last_filter = []
 
 count = len(yellow_letters)
-
 for w in temp:
-    w = list(w)
     n = 0
     for i in w:
         if i in yellow_letters:
             n += 1
-
     if n == count:
         last_filter.append(w)
 

@@ -4,15 +4,36 @@ words_database = words.words()
 green_letters = []
 yellow_letters = []
 
+# all alphabet letters
+valid_letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+r_letters = []
+
 defaults = ["BRICK","JUMPY","VOZHD","GLENT","WAQFS"]
+defaults_2 = [['b','r','i','c','k'],['j','u','m','p','y'],['v','o','z','h','d'],['g','l','e','n','t'],['w','a','q','f','s']]
 fixed_letters = {}
 
-for i in range(5):
-    
-    print(f'---> Use {defaults[i]} as input {i+1}')
+def remove_elements(x, y):
+    for i in y:
+        if i in x:
+            x.remove(i)
+    return x
 
+for i in range(5):
+    print(f'---> Use {defaults[i]} as input {i+1}')
     g = input('[ ] Enter green letters: ')
+    gl = list(g)
+    gl = remove_elements(defaults_2[i], gl)
+    
+    r_letters += gl
+    
     y = input('[ ] Enter yellow letters: ')
+    yl = list(y)
+    yl = remove_elements(defaults_2[i],yl)
+
+    r_letters += yl
+    # for z in yl:
+    #     r_letters.append(z)
+    
     print()
     
     if len(g) > 0:
@@ -93,3 +114,4 @@ for w in temp:
         last_filter.append(w)
 
 print(last_filter)
+print('Total words:',len(last_filter))

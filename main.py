@@ -5,12 +5,13 @@ green_letters = []
 yellow_letters = []
 
 # all alphabet letters
-valid_letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-r_letters = []
+my_letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
 defaults = ["BRICK","JUMPY","VOZHD","GLENT","WAQFS"]
 defaults_2 = [['b','r','i','c','k'],['j','u','m','p','y'],['v','o','z','h','d'],['g','l','e','n','t'],['w','a','q','f','s']]
 fixed_letters = {}
+
+valid_letters = ['x']
 
 def remove_elements(x, y):
     for i in y:
@@ -18,44 +19,34 @@ def remove_elements(x, y):
             x.remove(i)
     return x
 
-for i in range(5):
-    print(f'---> Use {defaults[i]} as input {i+1}')
-    g = input('[ ] Enter green letters: ')
-    gl = list(g)
-    gl = remove_elements(defaults_2[i], gl)
-    
-    r_letters += gl
-    
-    y = input('[ ] Enter yellow letters: ')
-    yl = list(y)
-    yl = remove_elements(defaults_2[i],yl)
+expected_word = ['_','_','_','_','_']
+it = 0
+for i in defaults_2:
+    print(f'---> Use {defaults[it]} as input {it+1}')
+    g = list(input('[ ] Enter green letters: ').split())
+    for j in g:
+        if j in i:
+            valid_letters.append(j)
+    for k in range(len(g)):
+        if g[k] in i:
+            fixed_letters[k] = g[k]
+            expected_word[k] = g[k]
+    it += 1
 
-    r_letters += yl
-    # for z in yl:
-    #     r_letters.append(z)
+    y = list(input('[ ] Enter yellow letters: ').split())
+    for j in y:
+        if j in i:
+            valid_letters.append(j)
+            yellow_letters.append(j)
+
     
-    print()
-    
-    if len(g) > 0:
-        for i in range(5):
-            if g[i] != '_':
-                fixed_letters[i] = g[i]
+print(expected_word)
+print(valid_letters)
+print('Yellow:',yellow_letters)
+print('Fixed',fixed_letters)
 
-    if len(y) != 0:
-        if len(y) > 1:
-            z = y.split()
-            for i in y:
-                yellow_letters.append(i)
-        else:
-            yellow_letters.append(y)
-
-positions = []
-for keys in fixed_letters.keys():
-    positions.append(keys)
-
+final_word = []
 temp = []
-temp_2 = []
-final_word = ['_','_','_','_','_']
 
 for wrd in words_database:
     wrd = wrd.strip()
@@ -96,22 +87,27 @@ for wrd in words_database:
             final_word[positions[4]] = wrd[positions[4]]
 
 
-print('Total words:',len(temp))
-# print('Words:', temp)
-print('Fixed:', fixed_letters)
-print('Yellow:', yellow_letters)
-print('Final:', final_word)
+# print('Total words:',len(temp))
+# print('Fixed:', fixed_letters)
+# print('Yellow:', yellow_letters)
+# print('Final:', final_word)
     
-last_filter = []
+# last_filter = []
 
-count = len(yellow_letters)
-for w in temp:
-    n = 0
-    for i in w:
-        if i in yellow_letters:
-            n += 1
-    if n == count:
-        last_filter.append(w)
+# temp = sorted(temp)
 
-print(last_filter)
-print('Total words:',len(last_filter))
+
+# print(temp)
+# print(r_letters)
+
+# count = len(yellow_letters)
+# for w in temp:
+#     n = 0
+#     for i in w:
+#         if i in yellow_letters:
+#             n += 1
+#     if n == count:
+#         last_filter.append(w)
+
+# print(last_filter)
+# print('Total words:',len(last_filter))

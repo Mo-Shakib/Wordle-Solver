@@ -3,7 +3,6 @@ words_database = words.words()
 
 yellow_letters = []
 
-# all alphabet letters
 my_letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
 defaults = ["BRICK","JUMPY","VOZHD","GLENT","WAQFS"]
@@ -13,6 +12,10 @@ fixed_letters = {}
 valid_letters = ['x']
 original_letters = []
 expected_word = ['_','_','_','_','_']
+
+print('---------- Welcome to wordle solver! ----------')
+
+
 it = 0
 for i in defaults_2:
     print(f'---> Use {defaults[it]} as input {it+1}')

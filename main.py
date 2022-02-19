@@ -1,7 +1,6 @@
 import words
 words_database = words.words()
 
-green_letters = []
 yellow_letters = []
 
 # all alphabet letters
@@ -9,16 +8,10 @@ my_letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q
 
 defaults = ["BRICK","JUMPY","VOZHD","GLENT","WAQFS"]
 defaults_2 = [['b','r','i','c','k'],['j','u','m','p','y'],['v','o','z','h','d'],['g','l','e','n','t'],['w','a','q','f','s']]
+
 fixed_letters = {}
-
 valid_letters = ['x']
-
-def remove_elements(x, y):
-    for i in y:
-        if i in x:
-            x.remove(i)
-    return x
-
+original_letters = []
 expected_word = ['_','_','_','_','_']
 it = 0
 for i in defaults_2:
@@ -27,6 +20,7 @@ for i in defaults_2:
     for j in g:
         if j in i:
             valid_letters.append(j)
+            original_letters.append(j)
     for k in range(len(g)):
         if g[k] in i:
             fixed_letters[k] = g[k]
@@ -38,15 +32,14 @@ for i in defaults_2:
         if j in i:
             valid_letters.append(j)
             yellow_letters.append(j)
+            original_letters.append(j)
 
-    
-print(expected_word)
-print(valid_letters)
-print('Yellow:',yellow_letters)
-print('Fixed',fixed_letters)
-
-final_word = []
+final_word = ['_','_','_','_','_']
 temp = []
+positions = []
+
+for keys in fixed_letters.keys():
+     positions.append(keys)
 
 for wrd in words_database:
     wrd = wrd.strip()
@@ -86,28 +79,40 @@ for wrd in words_database:
             final_word[positions[3]] = wrd[positions[3]]
             final_word[positions[4]] = wrd[positions[4]]
 
+temp = sorted(temp)
+last_filter = []
 
-# print('Total words:',len(temp))
-# print('Fixed:', fixed_letters)
-# print('Yellow:', yellow_letters)
-# print('Final:', final_word)
-    
-# last_filter = []
+for word in temp:
+    count = 0
+    for i in word:
+        if i in valid_letters:
+            count += 1
+    if count == 5:
+        last_filter.append(word)
 
-# temp = sorted(temp)
+if len(last_filter) == 0:
+    print('Sorry, no words found')
+    exit()
+else:
+    result = {}
+    original_letters = sorted(original_letters)
+    last_filter = sorted(last_filter)
+
+    for word in last_filter:
+        w = word
+        word = list(word)
+        word = set(word)
+        score = len(word)
+        
+        for i in word:
+            if i in yellow_letters:
+                score += 1
+            elif i not in original_letters:
+                score -= 1    
+        result[w] = score
 
 
-# print(temp)
-# print(r_letters)
+    result = sorted(result.items(), key=lambda kv: kv[1], reverse=True)
+    output = result[0][0]
 
-# count = len(yellow_letters)
-# for w in temp:
-#     n = 0
-#     for i in w:
-#         if i in yellow_letters:
-#             n += 1
-#     if n == count:
-#         last_filter.append(w)
-
-# print(last_filter)
-# print('Total words:',len(last_filter))
+    print('The word is:',output.upper())

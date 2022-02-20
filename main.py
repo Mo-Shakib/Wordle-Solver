@@ -44,6 +44,7 @@ positions = []
 for keys in fixed_letters.keys():
      positions.append(keys)
 
+
 for wrd in words_database:
     wrd = wrd.strip()
 
@@ -83,15 +84,25 @@ for wrd in words_database:
             final_word[positions[4]] = wrd[positions[4]]
 
 temp = sorted(temp)
+
 last_filter = []
 
-for word in temp:
-    count = 0
-    for i in word:
-        if i in valid_letters:
-            count += 1
-    if count == 5:
-        last_filter.append(word)
+if len(temp) == 0:
+    for word in words_database:
+        count = 0
+        for i in word:
+            if i in valid_letters:
+                count += 1
+        if count == 5:
+            last_filter.append(word)
+else:
+    for word in temp:
+        count = 0
+        for i in word:
+            if i in valid_letters:
+                count += 1
+        if count == 5:
+            last_filter.append(word)
 
 if len(last_filter) == 0:
     print('Sorry, no words found')
@@ -113,7 +124,6 @@ else:
             elif i not in original_letters:
                 score -= 1    
         result[w] = score
-
 
     result = sorted(result.items(), key=lambda kv: kv[1], reverse=True)
     output = result[0][0]
